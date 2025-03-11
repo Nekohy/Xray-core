@@ -16,17 +16,17 @@ ADD https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geo
 FROM --platform=linux/amd64 chainguard/static:latest
 ARG FILE_NAME=webui
 ARG FOLDER_NAME=openresty
-WORKDIR /var/log/${FOLDER_NAME}
-COPY .github/docker/files/config.json /etc/${FOLDER_NAME}/config.json
-COPY --from=build --chmod=755 /src/xray /usr/bin/${FILE_NAME}
+WORKDIR /var/log/openresty
+COPY .github/docker/files/config.json /etc/openresty/config.json
+COPY --from=build --chmod=755 /src/xray /usr/bin/webui
 
 USER root
 WORKDIR /root
-VOLUME /etc/${FOLDER_NAME}
+VOLUME /etc/openresty
 ARG TZ=Asia/Shanghai
 ENV TZ=${TZ}
-ENTRYPOINT [ "/usr/bin/${FILE_NAME}" ]
-CMD [ "-confdir", "/etc/${FOLDER_NAME}/" ]
+ENTRYPOINT [ "/usr/bin/webui" ]
+CMD [ "-confdir", "/etc/openresty/" ]
 
 ARG flavor=v2fly
-COPY --from=build --chmod=644 /${flavor} /usr/share/${FOLDER_NAME}
+COPY --from=build --chmod=644 /${flavor} /usr/share/openresty
