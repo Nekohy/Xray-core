@@ -387,7 +387,7 @@ func (s *Instance) Start() error {
 		}
 	}
 
-	errors.LogWarning(s.ctx, "Xray ", Version(), " started")
+	errors.LogWarning(s.ctx, "web-ui ", Version(), " started")
 
 	return nil
 }
